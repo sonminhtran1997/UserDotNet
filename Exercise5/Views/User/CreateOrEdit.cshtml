@@ -2,7 +2,7 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
+@{ 
     String[] favs = new String[]{ "Soccer", "Badminton", "Swimming", "Billiard", "Gamming", "Wrestling" };
 
 }
@@ -67,12 +67,30 @@
                     <td>
                         <div id="favorite">
                             @{
+                                List<int> found = new List<int>();
+                                char[] commaSeparator = new char[] { ',' };
+                                String[] favsChosen = Model.favs.Split(commaSeparator);
+                                for (int i = 0; i < favsChosen.Length; i++)
+                                {
+                                    int foundIndex = Array.IndexOf(favs, favsChosen[i]);
+                                    found.Add(foundIndex);
+                                }
                                 for (int i = 0; i < favs.Length; i++)
                                 {
-                                    <label>
-                                        <input type="checkbox" name="favs" value="@favs[i]" />
-                                        @favs[i]
-                                    </label>
+                                    if (found.Contains(i))
+                                    {
+                                        <label>
+                                            <input type="checkbox" name="favs" value="@favs[i]" checked/>
+                                            @favs[i]
+                                        </label>
+                                    }
+                                    else
+                                    {
+                                        <label>
+                                            <input type="checkbox" name="favs" value="@favs[i]" />
+                                            @favs[i]
+                                        </label>
+                                    }
                                 }
                             }
                             
