@@ -1,0 +1,100 @@
+﻿@model Exercise5.Models.User
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    String[] favs = new String[]{ "Soccer", "Badminton", "Swimming", "Billiard", "Gamming", "Wrestling" };
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Exercise 1</title>
+    <style type="text/css" media="screen">
+        .lower_right_button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        #survey_form {
+            max-width: 80vh;
+            min-height: 30vh;
+        }
+
+        #output_area {
+            border-style: inset;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <fieldset id="survey_form">
+        <legend style="color:blue;font-weight:bold;">Survey</legend>
+        <form name="myform" asp-action="CreateOrEdit" style="position: relative">
+            <input type="hidden" asp-for="id"/>
+            <table>
+                <tr>
+                    <th><label asp-for="firstName"></label></th>
+                    <td>
+                        <input asp-for="firstName"/>
+                        <span asp-validation-for="firstName" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label asp-for="lastName"></label></th>
+                    <td>
+                        <input asp-for="lastName" />
+                        <span asp-validation-for="lastName" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Gender:</th>
+                    <td>
+                        <div id="radio_area">
+                            <label><input type="radio" name="gender" value="Male" checked="checked"> Male</label>
+                            <label><input type="radio" name="gender" value="Female"> Female<br></label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Favorite: </th>
+                    <td>
+                        <div id="favorite">
+                            @{
+                                for (int i = 0; i < favs.Length; i++)
+                                {
+                                    <label>
+                                        <input type="checkbox" name="favs" value="@favs[i]" />
+                                        @favs[i]
+                                    </label>
+                                }
+                            }
+                            
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Role:</th>
+                    <td>
+                        <select id="role" asp-for="role">
+                            <option value="admin">admin</option>
+                            <option value="user">user</option>
+                            <option value="mod">mod</option>
+                        </select>
+                    </td>
+                    <br>
+                </tr>
+            </table>
+            <br>
+            <input id="save" class="lower_right_button" type="submit" value="Submit">
+        </form>
+    </fieldset>
+</body>
+</html>
+

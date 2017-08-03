@@ -1,0 +1,43 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Exercise5.Models;
+
+namespace Exercise5.Migrations
+{
+    [DbContext(typeof(UserContext))]
+    [Migration("20170803061233_InitialCreate")]
+    partial class InitialCreate
+    {
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Exercise5.Models.User", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("favs");
+
+                    b.Property<string>("firstName")
+                        .IsRequired();
+
+                    b.Property<int>("gender");
+
+                    b.Property<string>("lastName")
+                        .IsRequired();
+
+                    b.Property<string>("role");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Users");
+                });
+        }
+    }
+}
